@@ -67,3 +67,42 @@ const notMarkovSays = markov.says.myBind(pavlov);
 notMarkovSays("meow", "me");
 // Pavlov says meow to me!
 // true
+
+function curriedSum(numArgs){
+  const arr = [];
+  return function _curriedSum(num){
+    arr.push(num);
+    if (arr.length >= numArgs){
+      console.log(arr.reduce((acc, el) => acc + el));
+    } else {
+      return _curriedSum;
+    }
+  };
+}
+
+const cs = curriedSum(5);
+cs(1)(2)(3)(4)(5);
+
+
+function sumArgs(args){
+  
+  const ourSum =  args.reduce((acc, el) => acc + el);
+  console.log(ourSum);
+}
+
+Function.prototype.curry = function(numArgs){
+  const arr = [];
+  that = this;
+  return function _curry(num) {
+    
+    arr.push(num);
+    if (arr.length === numArgs) {
+      that.call(that, arr);
+    } else {
+      return _curry;
+    }
+  };
+}
+
+const sa = sumArgs.curry(5);
+
