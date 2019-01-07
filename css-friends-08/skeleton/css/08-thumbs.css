@@ -1,1 +1,22 @@
 /* PHASE 8: Thumbs */
+.cat-grid {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.cat-grid li {
+  margin: 0 0 10px 0;
+}
+
+.cat-grid > li:nth-child(3n-1) {
+  margin: 0 10px 10px 10px;
+}
+
+.thumb {
+  display: block;  
+  position: relative;
+  width: 58px;
+  height: 58px;
+  border-radius: 5px;
+  border: 1px solid black;
+}
