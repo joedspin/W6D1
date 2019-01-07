@@ -16,9 +16,16 @@ function restSum(...nums) {
 
 Function.prototype.myBind = function(ctx, ...bindArgs) {
   return (...callArgs) => {
-    return () => {
       this.apply(ctx, bindArgs.concat(callArgs));
-    };
+  };
+};
+
+Function.prototype.myBind = function(ctx) {
+  const bindArgs = Array.from(arguments).slice(1);
+  const that = this;
+  return function(){
+      const callArgs = Array.from(arguments);
+      that.apply(ctx, bindArgs.concat(callArgs));
   };
 };
 
@@ -84,7 +91,7 @@ const cs = curriedSum(5);
 cs(1)(2)(3)(4)(5);
 
 
-function sumArgs(args){
+function sumArgs(...args){
   
   const ourSum =  args.reduce((acc, el) => acc + el);
   console.log(ourSum);
@@ -92,12 +99,11 @@ function sumArgs(args){
 
 Function.prototype.curry = function(numArgs){
   const arr = [];
-  that = this;
+  const that = this;
   return function _curry(num) {
-    
     arr.push(num);
     if (arr.length === numArgs) {
-      that.call(that, arr);
+      that.apply(that, arr);
     } else {
       return _curry;
     }
